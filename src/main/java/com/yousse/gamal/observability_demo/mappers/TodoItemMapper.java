@@ -13,16 +13,23 @@ import com.yousse.gamal.observability_demo.models.TodoItem;
 @Mapper(componentModel = "spring")
 public interface TodoItemMapper {
 
-    @Mapping(target = "id", source = "id")
+    
     @Mapping(target = "title", source = "title")
     @Mapping(target = "description", source = "description")
     @Mapping(target = "completed", source = "completed")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdDate", ignore = true)
+    @Mapping(target = "lastModifiedDate", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "lastModifiedBy", ignore = true)
     TodoItem toEntity(TodoItemDto dto);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "title", source = "title")
     @Mapping(target = "description", source = "description")
     @Mapping(target = "completed", source = "completed")
+    @Mapping(target = "createdDate", source = "createdDate")
+    @Mapping(target = "lastModifiedDate", source = "lastModifiedDate")
     TodoItemDto toDto(TodoItem entity);
 
     default List<TodoItem> toEntityList(List<TodoItemDto> dtoList) {
