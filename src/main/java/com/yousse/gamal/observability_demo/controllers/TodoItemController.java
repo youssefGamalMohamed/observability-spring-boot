@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -57,4 +59,12 @@ public class TodoItemController {
     }
     
 
+    @PutMapping("/v1/todo-items/{id}")
+    public TodoItemDto updateById(@PathVariable String id, @RequestBody @Valid TodoItemDto todoItemDto) {
+        log.info("Controller: Updating todo item by id: {}", id);
+        TodoItem updatedItem = todoItemService.updateById(id, todoItemMapper.toEntity(todoItemDto));
+        TodoItemDto updatedItemDto = todoItemMapper.toDto(updatedItem);
+        log.info("Controller: Updated todo item by id: {}", updatedItemDto);
+        return updatedItemDto;
+    }
 }
